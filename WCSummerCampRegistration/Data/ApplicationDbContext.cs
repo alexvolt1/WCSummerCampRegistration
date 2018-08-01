@@ -14,6 +14,11 @@ namespace WCSummerCampRegistration.Data
             : base(options)
         {
         }
+        public DbSet<Camper> Campers { get; set; }
+        public DbSet<Restriction> Restrictions { get; set; }
+        public DbSet<ProtectionPlan> ProtectionPlans { get; set; }
+        public DbSet<PaymentOptions> PaymentOptions { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
