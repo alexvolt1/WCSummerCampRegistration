@@ -57,7 +57,11 @@ namespace WCSummerCampRegistration
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                context.Database.Migrate();
+            }
             app.UseStaticFiles();
 
             app.UseAuthentication();

@@ -14,9 +14,11 @@ namespace WCSummerCampRegistration.Models
 
 
         [Display(Name = "Allergies, medications, other concerns")]
+        [Column(TypeName = "nvarchar(256)")]
         public string Concerns { get; set; }
 
         [Display(Name = "Permission for Sunscreen")]
+        [Column(TypeName = "nvarchar(256)")]
         public string Sunscreen { get; set; }
 
         [Required]

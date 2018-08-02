@@ -7,21 +7,22 @@ using System.Threading.Tasks;
 
 namespace WCSummerCampRegistration.Models
 {
-    public class Week
+    public class PaymentPlan
     {
         [Required]
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "Week Start")]
+
+        [Display(Name = "Payment Month")]
         [Column(TypeName = "nvarchar(16)")]
-        public string WeekStart { get; set; }
+        public string Monthly { get; set; }
 
         [Required]
-        [Display(Name = "Camp")]
-        public int CampId { get; set; }
+        [Display(Name = "PaymentOption")]
+        public int PaymentOptionId { get; set; }
 
-        [ForeignKey("CampId")]
-        public virtual Camp Camp { get; set; }
+        [ForeignKey("PaymentOptionId")]
+        public virtual PaymentOption PaymentOption { get; set; }
     }
 }
+

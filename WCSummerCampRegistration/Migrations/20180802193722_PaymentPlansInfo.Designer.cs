@@ -11,9 +11,10 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180802193722_PaymentPlansInfo")]
+    partial class PaymentPlansInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,84 +319,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasIndex("PaymentOptionId");
 
                     b.ToTable("PaymentPlans");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Policy", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AcceptableUnacceptableBehavior")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("CommunicatingAnEmergency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Disease")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("DropOffProcedure")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Illness")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("LatePickUp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("LateRegistration")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Lunch")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Medicine")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("NecessaryForms")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("PhotoConsent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("PickUpProcedure")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("PoliciesAndProcedures")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("ReportingChildAbuse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("SafetyPolicy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Visiting")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("WhatToBring")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Policies");
                 });
 
             modelBuilder.Entity("WCSummerCampRegistration.Models.Pricing", b =>

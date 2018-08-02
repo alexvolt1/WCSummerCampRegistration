@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace WCSummerCampRegistration.Models
 {
-    public class PaymentOptions
+    public class PaymentOption
     {
         [Required]
         public int Id { get; set; }
 
 
         [Display(Name = "Paid in full")]
-        public string PaidInFull { get; set; }
+        public bool PaidInFull { get; set; }
 
    
         [Display(Name = "Monthly payment plan")]
-        public string Monthly { get; set; }
+        public bool Monthly { get; set; }
 
         [Required]
         [Display(Name = "Camper")]

@@ -9,6 +9,7 @@ namespace WCSummerCampRegistration.Models
 {
     public class PaymentMethod
     {
+        [Required]
         public int Id { get; set; }
 
 
@@ -16,19 +17,25 @@ namespace WCSummerCampRegistration.Models
         public bool ACACAccount { get; set; }
 
         [Display(Name = "Credit Card")]
-        public string CreditCard { get; set; }
+        public bool CreditCard { get; set; }
 
+        [Required]
         [Display(Name = "Name on the card")]
+        [Column(TypeName = "nvarchar(32)")]
         public string FullName { get; set; }
 
+        [Required]
         [Display(Name = "Credit Card number")]
+        [Column(TypeName = "nvarchar(32)")]
+        [CreditCard(ErrorMessage = "Credit Card Number is Invalid")]
         public string CCNumber { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         public DateTime Expiration { get; set; }
 
         [Display(Name = "Security Code")]
-        public string SecurityCode { get; set; }
+        public int SecurityCode { get; set; }
 
         [Required]
         [Display(Name = "Camper")]
