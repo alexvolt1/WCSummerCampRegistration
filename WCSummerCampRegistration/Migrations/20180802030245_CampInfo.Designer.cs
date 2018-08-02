@@ -11,9 +11,10 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180802030245_CampInfo")]
+    partial class CampInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -283,28 +284,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("PaymentOptions");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Pricing", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("MembAcademyAlonePrice");
-
-                    b.Property<decimal>("MembAcademyDayCampPrice");
-
-                    b.Property<decimal>("MembRegPrice");
-
-                    b.Property<decimal>("NonMembAcademyAlonePrice");
-
-                    b.Property<decimal>("NonMembAcademyDayCampPrice");
-
-                    b.Property<decimal>("NonMembRegPrice");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pricings");
-                });
-
             modelBuilder.Entity("WCSummerCampRegistration.Models.ProtectionPlan", b =>
                 {
                     b.Property<int>("Id")
@@ -337,23 +316,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasIndex("CamperId");
 
                     b.ToTable("Restrictions");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Week", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CampId");
-
-                    b.Property<string>("WeekStart")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CampId");
-
-                    b.ToTable("Weeks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -430,14 +392,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
                         .WithMany()
                         .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Week", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camp", "Catmp")
-                        .WithMany()
-                        .HasForeignKey("CampId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

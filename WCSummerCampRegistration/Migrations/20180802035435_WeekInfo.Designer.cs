@@ -11,9 +11,10 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180802035435_WeekInfo")]
+    partial class WeekInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,28 +282,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasIndex("CamperId");
 
                     b.ToTable("PaymentOptions");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Pricing", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("MembAcademyAlonePrice");
-
-                    b.Property<decimal>("MembAcademyDayCampPrice");
-
-                    b.Property<decimal>("MembRegPrice");
-
-                    b.Property<decimal>("NonMembAcademyAlonePrice");
-
-                    b.Property<decimal>("NonMembAcademyDayCampPrice");
-
-                    b.Property<decimal>("NonMembRegPrice");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pricings");
                 });
 
             modelBuilder.Entity("WCSummerCampRegistration.Models.ProtectionPlan", b =>

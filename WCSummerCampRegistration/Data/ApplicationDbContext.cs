@@ -19,6 +19,9 @@ namespace WCSummerCampRegistration.Data
         public DbSet<ProtectionPlan> ProtectionPlans { get; set; }
         public DbSet<PaymentOptions> PaymentOptions { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<Camp> Camps { get; set; }
+        public DbSet<Week> Weeks { get; set; }
+        public DbSet<Pricing> Pricings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
