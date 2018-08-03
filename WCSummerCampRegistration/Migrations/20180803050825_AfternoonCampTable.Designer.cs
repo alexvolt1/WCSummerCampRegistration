@@ -11,8 +11,8 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180802030245_CampInfo")]
-    partial class CampInfo
+    [Migration("20180803050825_AfternoonCampTable")]
+    partial class AfternoonCampTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -129,6 +129,44 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WCSummerCampRegistration.Models.AcademyCamp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AgeFrom");
+
+                    b.Property<int>("AgeTo");
+
+                    b.Property<string>("CampName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AcademyCamps");
+                });
+
+            modelBuilder.Entity("WCSummerCampRegistration.Models.AfternoonCamp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AgeFrom");
+
+                    b.Property<int>("AgeTo");
+
+                    b.Property<string>("CampName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AfternoonCamps");
+                });
+
             modelBuilder.Entity("WCSummerCampRegistration.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -180,142 +218,23 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
+            modelBuilder.Entity("WCSummerCampRegistration.Models.MorningCamp", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Age")
-                        .IsRequired();
+                    b.Property<int>("AgeFrom");
 
-                    b.Property<string>("CampCategory")
-                        .IsRequired();
+                    b.Property<int>("AgeTo");
 
-                    b.Property<string>("CampType")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Camps");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camper", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Age");
-
-                    b.Property<DateTime>("Birthdate");
-
-                    b.Property<string>("City")
-                        .IsRequired();
-
-                    b.Property<string>("Email")
-                        .IsRequired();
-
-                    b.Property<string>("FirstName")
-                        .IsRequired();
-
-                    b.Property<string>("LastName")
-                        .IsRequired();
-
-                    b.Property<string>("Parent")
-                        .IsRequired();
-
-                    b.Property<string>("Phone")
-                        .IsRequired();
-
-                    b.Property<string>("State")
-                        .IsRequired();
-
-                    b.Property<string>("Street")
-                        .IsRequired();
-
-                    b.Property<string>("Zip")
-                        .IsRequired();
+                    b.Property<string>("CampName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campers");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("ACACAccount");
-
-                    b.Property<string>("CCNumber");
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<string>("CreditCard");
-
-                    b.Property<DateTime>("Expiration");
-
-                    b.Property<string>("FullName");
-
-                    b.Property<string>("SecurityCode");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("PaymentMethods");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentOptions", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<string>("Monthly");
-
-                    b.Property<string>("PaidInFull");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("PaymentOptions");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.ProtectionPlan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<DateTime>("Week");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("ProtectionPlans");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Restriction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<string>("Concerns");
-
-                    b.Property<string>("Sunscreen");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("Restrictions");
+                    b.ToTable("MorningCamps");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -360,38 +279,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasOne("WCSummerCampRegistration.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentMethod", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentOptions", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.ProtectionPlan", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Restriction", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -14,16 +14,19 @@ namespace WCSummerCampRegistration.Data
             : base(options)
         {
         }
-        public DbSet<Camp> Camps { get; set; }
-        public DbSet<Camper> Campers { get; set; }
-        public DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public DbSet<PaymentOption> PaymentOptions { get; set; }
-        public DbSet<PaymentPlan> PaymentPlans { get; set; }
-        public DbSet<Policy> Policies { get; set; }
-        public DbSet<Pricing> Pricings { get; set; }
-        public DbSet<ProtectionPlan> ProtectionPlans { get; set; }
-        public DbSet<Restriction> Restrictions { get; set; }
-        public DbSet<Week> Weeks { get; set; }
+        public DbSet<AcademyCamp> AcademyCamps { get; set; }
+        public DbSet<MorningCamp> MorningCamps { get; set; }
+        public DbSet<AfternoonCamp> AfternoonCamps { get; set; }
+
+        //public DbSet<Camper> Campers { get; set; }
+        //public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        //public DbSet<PaymentOption> PaymentOptions { get; set; }
+        //public DbSet<PaymentPlan> PaymentPlans { get; set; }
+        //public DbSet<Policy> Policies { get; set; }
+        //public DbSet<Pricing> Pricings { get; set; }
+        //public DbSet<ProtectionPlan> ProtectionPlans { get; set; }
+        //public DbSet<Restriction> Restrictions { get; set; }
+        //public DbSet<Week> Weeks { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

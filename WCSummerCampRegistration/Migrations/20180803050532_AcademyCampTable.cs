@@ -5,10 +5,25 @@ using System.Collections.Generic;
 
 namespace WCSummerCampRegistration.Migrations
 {
-    public partial class CampersRestrictionProtectionPlanInfo : Migration
+    public partial class AcademyCampTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AcademyCamps",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AgeFrom = table.Column<int>(nullable: false),
+                    AgeTo = table.Column<int>(nullable: false),
+                    CampName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AcademyCamps", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -46,29 +61,6 @@ namespace WCSummerCampRegistration.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Campers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Age = table.Column<int>(nullable: false),
-                    Birthdate = table.Column<DateTime>(nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    Parent = table.Column<string>(nullable: false),
-                    Phone = table.Column<string>(nullable: false),
-                    State = table.Column<string>(nullable: false),
-                    Street = table.Column<string>(nullable: false),
-                    Zip = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Campers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,47 +169,6 @@ namespace WCSummerCampRegistration.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ProtectionPlans",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CamperId = table.Column<int>(nullable: false),
-                    Week = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProtectionPlans", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProtectionPlans_Campers_CamperId",
-                        column: x => x.CamperId,
-                        principalTable: "Campers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Restrictions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CamperId = table.Column<int>(nullable: false),
-                    Concerns = table.Column<string>(nullable: true),
-                    Sunscreen = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Restrictions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Restrictions_Campers_CamperId",
-                        column: x => x.CamperId,
-                        principalTable: "Campers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -256,20 +207,13 @@ namespace WCSummerCampRegistration.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProtectionPlans_CamperId",
-                table: "ProtectionPlans",
-                column: "CamperId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Restrictions_CamperId",
-                table: "Restrictions",
-                column: "CamperId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AcademyCamps");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -286,19 +230,10 @@ namespace WCSummerCampRegistration.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ProtectionPlans");
-
-            migrationBuilder.DropTable(
-                name: "Restrictions");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Campers");
         }
     }
 }

@@ -22,6 +22,6 @@ namespace WCSummerCampRegistration.Models
         public int CampId { get; set; }
 
         [ForeignKey("CampId")]
-        public virtual Camp Camp { get; set; }
+        public virtual AcademyCamp Camp { get; set; }
     }
 }

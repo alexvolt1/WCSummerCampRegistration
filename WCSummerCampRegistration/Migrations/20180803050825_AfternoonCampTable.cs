@@ -5,40 +5,30 @@ using System.Collections.Generic;
 
 namespace WCSummerCampRegistration.Migrations
 {
-    public partial class WeekInfo : Migration
+    public partial class AfternoonCampTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Weeks",
+                name: "AfternoonCamps",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CampId = table.Column<int>(nullable: false),
-                    WeekStart = table.Column<string>(nullable: false)
+                    AgeFrom = table.Column<int>(nullable: false),
+                    AgeTo = table.Column<int>(nullable: false),
+                    CampName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Weeks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Weeks_Camps_CampId",
-                        column: x => x.CampId,
-                        principalTable: "Camps",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_AfternoonCamps", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Weeks_CampId",
-                table: "Weeks",
-                column: "CampId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Weeks");
+                name: "AfternoonCamps");
         }
     }
 }

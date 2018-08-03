@@ -128,6 +128,44 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WCSummerCampRegistration.Models.AcademyCamp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AgeFrom");
+
+                    b.Property<int>("AgeTo");
+
+                    b.Property<string>("CampName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AcademyCamps");
+                });
+
+            modelBuilder.Entity("WCSummerCampRegistration.Models.AfternoonCamp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AgeFrom");
+
+                    b.Property<int>("AgeTo");
+
+                    b.Property<string>("CampName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AfternoonCamps");
+                });
+
             modelBuilder.Entity("WCSummerCampRegistration.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -179,305 +217,23 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
+            modelBuilder.Entity("WCSummerCampRegistration.Models.MorningCamp", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AgeRange")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(8)");
+                    b.Property<int>("AgeFrom");
 
-                    b.Property<string>("CampCategory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int>("AgeTo");
 
-                    b.Property<string>("CampType")
+                    b.Property<string>("CampName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<int>("CamperId");
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("Camps");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camper", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Age");
-
-                    b.Property<DateTime>("Birthdate");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("Parent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("Zip")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Campers");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("ACACAccount");
-
-                    b.Property<string>("CCNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<bool>("CreditCard");
-
-                    b.Property<DateTime>("Expiration");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<int>("SecurityCode");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("PaymentMethods");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentOption", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<bool>("Monthly");
-
-                    b.Property<bool>("PaidInFull");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("PaymentOptions");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentPlan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Monthly")
-                        .HasColumnType("nvarchar(16)");
-
-                    b.Property<int>("PaymentOptionId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentOptionId");
-
-                    b.ToTable("PaymentPlans");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Policy", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AcceptableUnacceptableBehavior")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("CommunicatingAnEmergency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Disease")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("DropOffProcedure")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Illness")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("LatePickUp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("LateRegistration")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Lunch")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Medicine")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("NecessaryForms")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("PhotoConsent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("PickUpProcedure")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("PoliciesAndProcedures")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("ReportingChildAbuse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("SafetyPolicy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("Visiting")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("WhatToBring")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4000)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Policies");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Pricing", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("MembAcademyAlonePrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("MembAcademyDayCampPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("MembRegPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembAcademyAlonePrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembAcademyDayCampPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembRegPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pricings");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.ProtectionPlan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<DateTime>("Week");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("ProtectionPlans");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Restriction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CamperId");
-
-                    b.Property<string>("Concerns")
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("Sunscreen")
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CamperId");
-
-                    b.ToTable("Restrictions");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Week", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CampId");
-
-                    b.Property<string>("WeekStart")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(16)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CampId");
-
-                    b.ToTable("Weeks");
+                    b.ToTable("MorningCamps");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -522,62 +278,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasOne("WCSummerCampRegistration.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentMethod", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentOption", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.PaymentPlan", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.PaymentOption", "PaymentOption")
-                        .WithMany()
-                        .HasForeignKey("PaymentOptionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.ProtectionPlan", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Restriction", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camper", "Camper")
-                        .WithMany()
-                        .HasForeignKey("CamperId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Week", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camp", "Camp")
-                        .WithMany()
-                        .HasForeignKey("CampId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
