@@ -13,17 +13,17 @@ namespace WCSummerCampRegistration.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Camp Name")]
+        [Display(Name = "Academy Camp Name")]
         [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
         [Column(TypeName = "nvarchar(32)")]
         public string CampName { get; set; }
 
         [Required]
-        [Display(Name = "From")]
+        [Display(Name = "Age From")]
         public int AgeFrom { get; set; }
 
         [Required]
-        [Display(Name = "To")]
+        [Display(Name = "Age To")]
         public int AgeTo { get; set; }
 
         //[Required]

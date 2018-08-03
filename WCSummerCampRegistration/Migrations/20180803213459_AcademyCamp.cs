@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WCSummerCampRegistration.Migrations
 {
-    public partial class AcademyCampTable : Migration
+    public partial class AcademyCamp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

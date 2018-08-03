@@ -11,8 +11,8 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180803050532_AcademyCampTable")]
-    partial class AcademyCampTable
+    [Migration("20180803213459_AcademyCamp")]
+    partial class AcademyCamp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

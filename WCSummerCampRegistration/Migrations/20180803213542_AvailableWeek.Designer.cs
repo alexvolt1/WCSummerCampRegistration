@@ -11,8 +11,8 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180803050715_MorningCampTable")]
-    partial class MorningCampTable
+    [Migration("20180803213542_AvailableWeek")]
+    partial class AvailableWeek
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,23 +199,22 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.MorningCamp", b =>
+            modelBuilder.Entity("WCSummerCampRegistration.Models.AvailableWeek", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AgeFrom");
+                    b.Property<int>("AcademyCampId");
 
-                    b.Property<int>("AgeTo");
-
-                    b.Property<string>("CampName")
+                    b.Property<string>("WeekStart")
                         .IsRequired()
-                        .HasColumnType("nvarchar(32)")
-                        .HasMaxLength(32);
+                        .HasColumnType("nvarchar(16)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("MorningCamps");
+                    b.HasIndex("AcademyCampId");
+
+                    b.ToTable("AvailableWeeks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -260,6 +259,14 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasOne("WCSummerCampRegistration.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WCSummerCampRegistration.Models.AvailableWeek", b =>
+                {
+                    b.HasOne("WCSummerCampRegistration.Models.AcademyCamp", "AcademyCamp")
+                        .WithMany()
+                        .HasForeignKey("AcademyCampId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

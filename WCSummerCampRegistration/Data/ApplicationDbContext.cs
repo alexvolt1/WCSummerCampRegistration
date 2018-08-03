@@ -15,8 +15,8 @@ namespace WCSummerCampRegistration.Data
         {
         }
         public DbSet<AcademyCamp> AcademyCamps { get; set; }
-        public DbSet<MorningCamp> MorningCamps { get; set; }
-        public DbSet<AfternoonCamp> AfternoonCamps { get; set; }
+        //public DbSet<MorningCamp> MorningCamps { get; set; }
+        //public DbSet<AfternoonCamp> AfternoonCamps { get; set; }
 
         //public DbSet<Camper> Campers { get; set; }
         //public DbSet<PaymentMethod> PaymentMethods { get; set; }
@@ -26,7 +26,7 @@ namespace WCSummerCampRegistration.Data
         //public DbSet<Pricing> Pricings { get; set; }
         //public DbSet<ProtectionPlan> ProtectionPlans { get; set; }
         //public DbSet<Restriction> Restrictions { get; set; }
-        //public DbSet<Week> Weeks { get; set; }
+        public DbSet<AvailableWeek> AvailableWeeks { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
