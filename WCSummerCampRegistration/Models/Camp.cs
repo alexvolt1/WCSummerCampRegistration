@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace WCSummerCampRegistration.Models
 {
-    public class AcademyCamp
+    public class Camp
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Academy Camp Name")]
+        [Display(Name = "Camp Name")]
         [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
         [Column(TypeName = "nvarchar(32)")]
-        public string CampName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Age From")]
@@ -25,6 +25,13 @@ namespace WCSummerCampRegistration.Models
         [Required]
         [Display(Name = "Age To")]
         public int AgeTo { get; set; }
+
+        [Required]
+        [Display(Name = "Category")]
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
 
         //[Required]
         //[Display(Name = "Stand Alone Camp Member Price")]

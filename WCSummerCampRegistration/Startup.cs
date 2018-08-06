@@ -66,6 +66,7 @@ namespace WCSummerCampRegistration
 
             app.UseAuthentication();
 
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

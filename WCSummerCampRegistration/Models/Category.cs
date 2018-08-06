@@ -7,23 +7,16 @@ using System.Threading.Tasks;
 
 namespace WCSummerCampRegistration.Models
 {
-    public class MorningCamp
+    public class Category
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Camp Name")]
+        [Display(Name = "Category Name")]
         [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
         [Column(TypeName = "nvarchar(32)")]
-        public string CampName { get; set; }
+        public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "From")]
-        public int AgeFrom { get; set; }
-
-        [Required]
-        [Display(Name = "To")]
-        public int AgeTo { get; set; }
     }
 }

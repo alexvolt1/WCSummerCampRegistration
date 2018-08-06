@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WCSummerCampRegistration.Models
 {
-    public class AvailableWeek
+    public class AvailWeek
     {
         [Required]
         public int Id { get; set; }
@@ -16,7 +16,7 @@ namespace WCSummerCampRegistration.Models
         [Required]
         [Display(Name = "Week Start")]
         [Column(TypeName = "nvarchar(16)")]
-        public string WeekStart { get; set; }
+        public string Name { get; set; }
 
         public enum EWeekStarts
         {
@@ -43,14 +43,24 @@ namespace WCSummerCampRegistration.Models
             [Display(Name = "8/19")]
             Week11 = 11,
             [Display(Name = "8/26")]
-            Week12 = 2,
+            Week12 = 12,
         };
 
-        [Required]
-        [Display(Name = "Academy Camp")]
-        public int AcademyCampId { get; set; }
+        [Display(Name = "Category")]
+        public int CategoryId { get; set; }
 
-        [ForeignKey("AcademyCampId")]
-        public virtual AcademyCamp AcademyCamp { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
+
+
+        [Display(Name = "Camp")]
+        public int CampId { get; set; }
+
+        [ForeignKey("CampId")]
+        public virtual Camp Camp { get; set; }
+
+
+
+
     }
 }
