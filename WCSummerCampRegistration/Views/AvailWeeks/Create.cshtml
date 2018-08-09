@@ -39,6 +39,24 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="form-group">
+                @{
+                    //foreach (var val in @EnumHelper<AvailWeek.EWeekStarts>.GetDisplayValues(AvailWeek.EWeekStarts.Week1))
+                    //foreach (var val in typeof(AvailWeek.EWeekStarts).GetEnumValues())
+                    //foreach (AvailWeek.EWeekStarts val in AvailWeek)
+                    foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
+                    {
+                        <label class="control-label">@((int)eweek)</label>
+                        <input name="availweek" value="" type="checkbox" />
+                        <br />
+                    }
+                }
+            </div>
+
+
+
             <div class="form-group">
                 <label asp-for="AvailWeek.Name" class="control-label"></label>
                 @*<input asp-for="AvailWeek.Name" class="form-control" />*@

@@ -10,6 +10,7 @@ namespace WCSummerCampRegistration.Models.AvailWeekViewModels
     {
 
         public AvailWeek AvailWeek { get; set; }
+        //public IEnumerable<AvailWeek.EWeekStarts> EnumerableEWeekStarts { get; set; }
         public IEnumerable<Category> Category { get; set; }
         public IEnumerable<Camp> Camp { get; set; }
 
