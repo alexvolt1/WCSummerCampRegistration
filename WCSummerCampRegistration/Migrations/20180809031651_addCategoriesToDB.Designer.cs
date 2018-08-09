@@ -10,8 +10,8 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180806004845_addAvailWeeksToDB")]
-    partial class addAvailWeeksToDB
+    [Migration("20180809031651_addCategoriesToDB")]
+    partial class addCategoriesToDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,53 +182,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.AvailWeek", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CampId");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(16)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CampId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("AvailWeeks");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AgeFrom");
-
-                    b.Property<int>("AgeTo");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)")
-                        .HasMaxLength(32);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Camps");
-                });
-
             modelBuilder.Entity("WCSummerCampRegistration.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -287,27 +240,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasOne("WCSummerCampRegistration.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.AvailWeek", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camp", "Camp")
-                        .WithMany()
-                        .HasForeignKey("CampId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WCSummerCampRegistration.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

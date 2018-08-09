@@ -139,6 +139,15 @@ namespace WCSummerCampRegistration.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            //Uncomment to delete records from Parent and Child tables
+            var weeksToDelete = _context.AvailWeeks.Where(c => c.CategoryId == id);
+            foreach (var availWeek in weeksToDelete)
+            {
+                _context.Entry(availWeek).State = EntityState.Deleted;
+            }
+            await _context.SaveChangesAsync();
+
+
             var category = await _context.Categories.FindAsync(id);
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();

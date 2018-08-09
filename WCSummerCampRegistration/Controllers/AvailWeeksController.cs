@@ -67,20 +67,19 @@ namespace WCSummerCampRegistration.Controllers
         // POST: AvailWeeks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,CampId")] AvailWeek availWeek)
+        public async Task<IActionResult> CreatePOST()
         {
             AvailWeekVM.AvailWeek.CampId = Convert.ToInt32(Request.Form["CampId"].ToString());
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(availWeek);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return View(AvailWeekVM);
             }
-            ViewData["CampId"] = new SelectList(_context.Camps, "Id", "Name", availWeek.CampId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", availWeek.CategoryId);
-            return View(availWeek);
+            _context.AvailWeeks.Add(AvailWeekVM.AvailWeek);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         public JsonResult GetCamps(int CategoryId)
