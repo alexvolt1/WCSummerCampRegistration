@@ -43,26 +43,30 @@
 
             <div class="form-group">
                 @{
-                    //foreach (var val in @EnumHelper<AvailWeek.EWeekStarts>.GetDisplayValues(AvailWeek.EWeekStarts.Week1))
-                    //foreach (var val in typeof(AvailWeek.EWeekStarts).GetEnumValues())
-                    //foreach (AvailWeek.EWeekStarts val in AvailWeek)
-                    foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
-                    {
-                        <label class="control-label">@((int)eweek)</label>
-                        <input name="availweek" value="" type="checkbox" />
-                        <br />
-                    }
+                    <label asp-for="AvailWeek.Name" class="control-label"></label>
+                    <select asp-for="AvailWeek.Name" id="wname" mame="wname" class="form-control">
+                        @{
+                            //foreach (var val in @EnumHelper<AvailWeek.EWeekStarts>.GetDisplayValues(AvailWeek.EWeekStarts.Week1))
+                            //foreach (var val in typeof(AvailWeek.EWeekStarts).GetEnumValues())
+                            //foreach (AvailWeek.EWeekStarts val in AvailWeek)
+                            foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
+                            {
+                                <option value="@eweek.GetDisplayName()">@eweek.GetDisplayName()</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="AvailWeek.Name" class="text-danger"></span>
                 }
             </div>
 
-
-
-            <div class="form-group">
+            @*
+                <div class="form-group">
                 <label asp-for="AvailWeek.Name" class="control-label"></label>
-                @*<input asp-for="AvailWeek.Name" class="form-control" />*@
+                <input asp-for="AvailWeek.Name" class="form-control" />
                 <select asp-for="AvailWeek.Name" asp-items="Html.GetEnumSelectList<AvailWeek.EWeekStarts>()" class="form-control"></select>
                 <span asp-validation-for="AvailWeek.Name" class="text-danger"></span>
-            </div>
+                </div>
+            *@
             <div class="form-group">
                 <label asp-for="AvailWeek.CategoryId" class="control-label"></label>
                 <select asp-for="@Model.AvailWeek.CategoryId" id="CategoryId" class="form-control" asp-items="Model.Category.ToSelectListItem(Model.AvailWeek.CategoryId)"></select>

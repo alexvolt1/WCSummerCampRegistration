@@ -10,8 +10,8 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180809031812_addCampsToDB")]
-    partial class addCampsToDB
+    [Migration("20180810211352_addCategory")]
+    partial class addCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,30 +182,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AgeFrom");
-
-                    b.Property<int>("AgeTo");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)")
-                        .HasMaxLength(32);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Camps");
-                });
-
             modelBuilder.Entity("WCSummerCampRegistration.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -264,14 +240,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasOne("WCSummerCampRegistration.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

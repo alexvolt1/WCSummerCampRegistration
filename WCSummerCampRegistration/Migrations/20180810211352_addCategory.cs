@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WCSummerCampRegistration.Migrations
 {
-    public partial class addCategoriesToDB : Migration
+    public partial class addCategory : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

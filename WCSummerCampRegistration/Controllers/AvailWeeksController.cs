@@ -77,7 +77,11 @@ namespace WCSummerCampRegistration.Controllers
 
                 return View(AvailWeekVM);
             }
-            _context.AvailWeeks.Add(AvailWeekVM.AvailWeek);
+            //for (int i=0; i<5;i++) {
+                //AvailWeekVM.AvailWeek.Id = 8 + i;
+                //_context.Entry(AvailWeekVM.AvailWeek).State = EntityState.Added;
+                _context.AvailWeeks.Add(AvailWeekVM.AvailWeek);
+            //}
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

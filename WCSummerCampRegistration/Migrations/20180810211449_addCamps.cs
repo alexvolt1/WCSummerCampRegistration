@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WCSummerCampRegistration.Migrations
 {
-    public partial class addCampsToDB : Migration
+    public partial class addCamps : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

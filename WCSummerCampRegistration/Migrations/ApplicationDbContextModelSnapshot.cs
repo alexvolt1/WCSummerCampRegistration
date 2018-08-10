@@ -182,9 +182,7 @@ namespace WCSummerCampRegistration.Migrations
 
             modelBuilder.Entity("WCSummerCampRegistration.Models.AvailWeek", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<int>("CampId");
 

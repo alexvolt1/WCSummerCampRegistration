@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WCSummerCampRegistration.Migrations
 {
-    public partial class addAvailWeeksToDB : Migration
+    public partial class addAvailWeeks : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
