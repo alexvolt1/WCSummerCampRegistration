@@ -69,6 +69,22 @@ namespace WCSummerCampRegistration.Controllers
             return View(camp);
         }
 
+
+
+        public async Task<JsonResult> doesCampExistAsync(string Name, int CategoryId)
+        {
+
+            var camp = await _context.Camps
+                .Include(c => c.Category)
+                .Where(a => a.CategoryId == CategoryId)
+                .FirstOrDefaultAsync(m => m.Name == Name);
+
+            return Json(camp == null);
+
+        }
+
+
+
         // GET: Camps/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

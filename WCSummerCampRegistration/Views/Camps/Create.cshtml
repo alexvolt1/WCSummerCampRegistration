@@ -15,7 +15,8 @@
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" id="NameValidation" name="NameValidation" class="text-danger"></span>
+                @*@Html.ValidationMessageFor(m => m.Name, "Please enter student name.", new { @class = "text-danger" })*@
             </div>
             <div class="form-group">
                 <label asp-for="AgeFrom" class="control-label"></label>
@@ -29,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -44,4 +45,45 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+                $("form").on('submit', function () {
+                    if ($("form").valid()) {
+                        var result = true;
+                        doesCampExist(function (res) {
+                            result = res;
+                        });
+
+                        if (result) {
+                            return true;
+                        }
+                        else {
+                            $("#NameValidation").html("Camp Name \"<b>" + $("#Name").val() + "</b>\" under category \"<b>" + $("#CategoryId option:selected").text() + "</b>\" alredy exists.");
+                            return false;
+                        }
+                    }
+            });
+        });
+
+        function doesCampExist(callback) {
+            var res = false;
+            var url = '@Url.Content("~/")' + "Camps/doesCampExistAsync";
+            var namesource = "#Name";
+            var catsource = "#CategoryId";
+            var data = { NAME: $(namesource).val(), CATEGORYID: $(catsource).val() };
+
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                async: false,
+                data: data,
+                success: function (data) {
+                    res = data;
+                    callback(data);
+                }
+            });
+    }
+    </script>
+
 }

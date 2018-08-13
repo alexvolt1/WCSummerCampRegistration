@@ -65,6 +65,28 @@ namespace WCSummerCampRegistration.Controllers
             return View(category);
         }
 
+
+        [HttpPost]
+        public JsonResult doesCategoryExist(string Name)
+        {
+            var category = _context.Categories
+                .FirstOrDefault(m => m.Name == Name);
+
+            return Json(category == null);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> doesCategoryExistAsync(string Name)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(m => m.Name == Name);
+
+            return Json(category == null);
+
+        }
+
+
+
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
