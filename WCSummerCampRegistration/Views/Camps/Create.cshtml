@@ -48,27 +48,27 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-                $("form").on('submit', function () {
-                    if ($("form").valid()) {
-                        var result = true;
-                        doesCampExist(function (res) {
-                            result = res;
-                        });
+            $("form").on('submit', function () {
+                if ($("form").valid()) {
+                    var result = true;
+                    doesCampExist(function (res) {
+                        result = res;
+                    });
 
-                        if (result) {
-                            return true;
-                        }
-                        else {
-                            $("#NameValidation").html("Camp Name \"<b>" + $("#Name").val() + "</b>\" under category \"<b>" + $("#CategoryId option:selected").text() + "</b>\" alredy exists.");
-                            return false;
-                        }
+                    if (result) {
+                        return true;
                     }
+                    else {
+                        $("#NameValidation").html("Camp Name \"<b>" + $("#Name").val() + "</b>\" under category \"<b>" + $("#CategoryId option:selected").text() + "</b>\" alredy exists.");
+                        return false;
+                    }
+                }
             });
         });
 
         function doesCampExist(callback) {
             var res = false;
-            var url = '@Url.Content("~/")' + "Camps/doesCampExistAsync";
+            var url = '@Url.Content("~/")' + "Camps/DoesCampExistAsync";
             var namesource = "#Name";
             var catsource = "#CategoryId";
             var data = { NAME: $(namesource).val(), CATEGORYID: $(catsource).val() };
@@ -83,7 +83,7 @@
                     callback(data);
                 }
             });
-    }
+        }
     </script>
 
 }

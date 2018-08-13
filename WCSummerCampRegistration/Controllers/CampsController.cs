@@ -71,13 +71,13 @@ namespace WCSummerCampRegistration.Controllers
 
 
 
-        public async Task<JsonResult> doesCampExistAsync(string Name, int CategoryId)
+        public async Task<JsonResult> doesCampExistAsync(string name, int categoryId)
         {
 
             var camp = await _context.Camps
                 .Include(c => c.Category)
-                .Where(a => a.CategoryId == CategoryId)
-                .FirstOrDefaultAsync(m => m.Name == Name);
+                .Where(a => a.CategoryId == categoryId)
+                .FirstOrDefaultAsync(m => m.Name == name);
 
             return Json(camp == null);
 

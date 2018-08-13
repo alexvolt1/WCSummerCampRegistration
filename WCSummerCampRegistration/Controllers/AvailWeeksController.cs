@@ -97,6 +97,19 @@ namespace WCSummerCampRegistration.Controllers
             return Json(new SelectList(campList, "Id", "Name"));
         }
 
+        public async Task<JsonResult> DoesWeekCampCatExistAsync(string name, int categoryId, int campId)
+        {
+
+            var week = await _context.AvailWeeks
+                .Include(c => c.Category)
+                .Where(a => a.CategoryId == categoryId)
+                .Where(b => b.CampId == campId)
+                .FirstOrDefaultAsync(m => m.Name == name);
+
+            return Json(week == null);
+
+        }
+
         // GET: AvailWeeks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
