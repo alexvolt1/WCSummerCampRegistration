@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WCSummerCampRegistration.Migrations
 {
-    public partial class addCategory : Migration
+    public partial class addCampers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,16 +48,26 @@ namespace WCSummerCampRegistration.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Campers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false)
+                    FirstName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    Age = table.Column<int>(nullable: false),
+                    Birthdate = table.Column<DateTime>(nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(64)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(32)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(32)", nullable: false),
+                    Zip = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(32)", nullable: false),
+                    ParentName = table.Column<string>(type: "nvarchar(64)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Campers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,7 +234,7 @@ namespace WCSummerCampRegistration.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Campers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

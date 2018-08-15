@@ -10,23 +10,22 @@ using WCSummerCampRegistration.Models;
 
 namespace WCSummerCampRegistration.Controllers
 {
-    public class CampsController : Controller
+    public class CampersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CampsController(ApplicationDbContext context)
+        public CampersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Camps
+        // GET: Campers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Camps.Include(c => c.Category);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Campers.ToListAsync());
         }
 
-        // GET: Camps/Details/5
+        // GET: Campers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,58 +33,39 @@ namespace WCSummerCampRegistration.Controllers
                 return NotFound();
             }
 
-            var camp = await _context.Camps
-                .Include(c => c.Category)
+            var camper = await _context.Campers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (camp == null)
+            if (camper == null)
             {
                 return NotFound();
             }
 
-            return View(camp);
+            return View(camper);
         }
 
-        // GET: Camps/Create
+        // GET: Campers/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return View();
         }
 
-        // POST: Camps/Create
+        // POST: Campers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AgeFrom,AgeTo,CategoryId,IsAvailable")] Camp camp)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Age,Birthdate,Street,City,State,Zip,Email,Phone,ParentName")] Camper camper)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(camp);
+                _context.Add(camper);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", camp.CategoryId);
-            return View(camp);
+            return View(camper);
         }
 
-
-
-        public async Task<JsonResult> doesCampExistAsync(string name, int categoryId)
-        {
-
-            var camp = await _context.Camps
-                .Include(c => c.Category)
-                .Where(a => a.CategoryId == categoryId)
-                .FirstOrDefaultAsync(m => m.Name == name);
-
-            return Json(camp == null);
-
-        }
-
-
-
-        // GET: Camps/Edit/5
+        // GET: Campers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,23 +73,22 @@ namespace WCSummerCampRegistration.Controllers
                 return NotFound();
             }
 
-            var camp = await _context.Camps.FindAsync(id);
-            if (camp == null)
+            var camper = await _context.Campers.FindAsync(id);
+            if (camper == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", camp.CategoryId);
-            return View(camp);
+            return View(camper);
         }
 
-        // POST: Camps/Edit/5
+        // POST: Campers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AgeFrom,AgeTo,CategoryId")] Camp camp)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Age,Birthdate,Street,City,State,Zip,Email,Phone,ParentName")] Camper camper)
         {
-            if (id != camp.Id)
+            if (id != camper.Id)
             {
                 return NotFound();
             }
@@ -118,12 +97,12 @@ namespace WCSummerCampRegistration.Controllers
             {
                 try
                 {
-                    _context.Update(camp);
+                    _context.Update(camper);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CampExists(camp.Id))
+                    if (!CamperExists(camper.Id))
                     {
                         return NotFound();
                     }
@@ -134,11 +113,10 @@ namespace WCSummerCampRegistration.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", camp.CategoryId);
-            return View(camp);
+            return View(camper);
         }
 
-        // GET: Camps/Delete/5
+        // GET: Campers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,39 +124,30 @@ namespace WCSummerCampRegistration.Controllers
                 return NotFound();
             }
 
-            var camp = await _context.Camps
-                .Include(c => c.Category)
+            var camper = await _context.Campers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (camp == null)
+            if (camper == null)
             {
                 return NotFound();
             }
 
-            return View(camp);
+            return View(camper);
         }
 
-        // POST: Camps/Delete/5
+        // POST: Campers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //Uncomment to delete records from Parent and Child tables
-            var weeksToDelete = _context.AvailWeeks.Where(c => c.CampId == id);
-            foreach (var availWeek in weeksToDelete)
-            {
-                _context.Entry(availWeek).State = EntityState.Deleted;
-            }
-            await _context.SaveChangesAsync();
-
-            var camp = await _context.Camps.FindAsync(id);
-            _context.Camps.Remove(camp);
+            var camper = await _context.Campers.FindAsync(id);
+            _context.Campers.Remove(camper);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CampExists(int id)
+        private bool CamperExists(int id)
         {
-            return _context.Camps.Any(e => e.Id == id);
+            return _context.Campers.Any(e => e.Id == id);
         }
     }
 }

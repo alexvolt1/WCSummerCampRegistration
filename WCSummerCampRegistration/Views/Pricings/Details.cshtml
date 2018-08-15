@@ -1,0 +1,54 @@
+﻿@model WCSummerCampRegistration.Models.Pricing
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pricing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MembRegPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MembRegPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NonMembRegPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NonMembRegPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MembAcademyAlonePrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MembAcademyAlonePrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NonMembAcademyAlonePrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NonMembAcademyAlonePrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MembAcademyDayCampPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MembAcademyDayCampPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NonMembAcademyDayCampPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NonMembAcademyDayCampPrice)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

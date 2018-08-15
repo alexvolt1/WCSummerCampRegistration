@@ -17,6 +17,8 @@ namespace WCSummerCampRegistration.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Camp> Camps { get; set; }
         public DbSet<AvailWeek> AvailWeeks { get; set; }
+        public DbSet<Camper> Campers { get; set; }
+        public DbSet<Pricing> Pricings { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WCSummerCampRegistration.Data;
 
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180815191419_addAvailWeeks")]
+    partial class addAvailWeeks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,8 +217,6 @@ namespace WCSummerCampRegistration.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<bool>("IsAvailable");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(32)")
@@ -296,35 +296,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Pricing", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("MembAcademyAlonePrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("MembAcademyDayCampPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("MembRegPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembAcademyAlonePrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembAcademyDayCampPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembRegPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pricings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

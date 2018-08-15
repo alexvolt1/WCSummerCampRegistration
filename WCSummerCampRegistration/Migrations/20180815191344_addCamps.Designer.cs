@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WCSummerCampRegistration.Data;
 
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180815191344_addCamps")]
+    partial class addCamps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,29 +182,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.AvailWeek", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CampId");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(16)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CampId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("AvailWeeks");
-                });
-
             modelBuilder.Entity("WCSummerCampRegistration.Models.Camp", b =>
                 {
                     b.Property<int>("Id")
@@ -214,8 +193,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.Property<int>("AgeTo");
 
                     b.Property<int>("CategoryId");
-
-                    b.Property<bool>("IsAvailable");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -298,35 +275,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("WCSummerCampRegistration.Models.Pricing", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("MembAcademyAlonePrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("MembAcademyDayCampPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("MembRegPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembAcademyAlonePrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembAcademyDayCampPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("NonMembRegPrice")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pricings");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -369,19 +317,6 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasOne("WCSummerCampRegistration.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WCSummerCampRegistration.Models.AvailWeek", b =>
-                {
-                    b.HasOne("WCSummerCampRegistration.Models.Camp", "Camp")
-                        .WithMany()
-                        .HasForeignKey("CampId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WCSummerCampRegistration.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

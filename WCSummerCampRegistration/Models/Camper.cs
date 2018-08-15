@@ -13,13 +13,15 @@ namespace WCSummerCampRegistration.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Camper's First Name")]
+        [Display(Name = "First Name")]
         [Column(TypeName = "nvarchar(32)")]
+        [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Camper's Last Name")]
+        [Display(Name = "Last Name")]
         [Column(TypeName = "nvarchar(32)")]
+        [StringLength(32, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
         public string LastName { get; set; }
 
         [Required]
@@ -53,13 +55,13 @@ namespace WCSummerCampRegistration.Models
 
         [Required]
         [Phone]
-        [Display(Name = "Home Phone")]
+        [Display(Name = "H. Phone")]
         [Column(TypeName = "nvarchar(32)")]
         public string Phone { get; set; }
 
         [Required]
-        [Display(Name = "Parent/Guardian Name")]
+        [Display(Name = "Parent/G-an Name")]
         [Column(TypeName = "nvarchar(64)")]
-        public string Parent { get; set; }
+        public string ParentName { get; set; }
     }
 }

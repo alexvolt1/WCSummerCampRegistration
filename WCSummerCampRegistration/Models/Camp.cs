@@ -28,6 +28,9 @@ namespace WCSummerCampRegistration.Models
         [Display(Name = "Age To")]
         public int AgeTo { get; set; }
 
+        public bool IsAvailable { get; set; }
+
+
         [Required]
         [Display(Name = "Category")]
         public int CategoryId { get; set; }

@@ -10,8 +10,8 @@ using WCSummerCampRegistration.Data;
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180810211523_addAvailWeeks")]
-    partial class addAvailWeeks
+    [Migration("20180815193806_addPricing")]
+    partial class addPricing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -229,6 +229,59 @@ namespace WCSummerCampRegistration.Migrations
                     b.ToTable("Camps");
                 });
 
+            modelBuilder.Entity("WCSummerCampRegistration.Models.Camper", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age");
+
+                    b.Property<DateTime>("Birthdate");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("ParentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Zip")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Campers");
+                });
+
             modelBuilder.Entity("WCSummerCampRegistration.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -243,6 +296,35 @@ namespace WCSummerCampRegistration.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("WCSummerCampRegistration.Models.Pricing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("MembAcademyAlonePrice")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<decimal>("MembAcademyDayCampPrice")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<decimal>("MembRegPrice")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<decimal>("NonMembAcademyAlonePrice")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<decimal>("NonMembAcademyDayCampPrice")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.Property<decimal>("NonMembRegPrice")
+                        .HasColumnType("decimal(10, 2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pricings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
