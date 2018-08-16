@@ -1,16 +1,57 @@
 ﻿@model WCSummerCampRegistration.Models.HomeViewModels.IndexViewModel
+@using WCSummerCampRegistration.Extensions
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-
-@foreach (var category in Model.Category)
+@if (Model.Category.Count() > 0)
 {
-    <h3 class="text-success">@category.Name</h3>
-    <div class="row" style="padding-bottom:50px;">
-        @await Html.PartialAsync("_ThumbnailAreaPartial", Model.AvailWeek.Where(u => u.Category.Name.Equals(category.Name)))
-    </div>
 
+
+
+    @foreach (var category in Model.Category)
+    {
+        <table border="1">
+            <tr>
+                <h3 class="text-success">@category.Name</h3>
+
+                @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
+                {
+                    <td>@eweek.GetDisplayName()</td>
+                }
+            </tr>
+        </table>
+        <div class="row" style="padding-bottom:20px;">
+
+            @foreach (var camp in Model.Camp.Where(u => u.Category.Name.Equals(category.Name)))
+            {
+                <div class="border border-info rounded col-12" style="">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="text-primary" style="font-size:16px;color:maroon;">@camp.Name</label>
+                                </div>
+                                @if (Model.Camp.Count() > 0)
+                                {
+                                    <div class="col-6" style="color:orangered">
+                                        <table border="1">
+                                            <tr>
+                                                @foreach (var availWeek in Model.AvailWeek.Where(u => u.Camp.Name.Equals(camp.Name)))
+                                                {
+                                                    <td>@availWeek.Name</td>
+                                                }
+                                            </tr>
+                                        </table>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 }
 
