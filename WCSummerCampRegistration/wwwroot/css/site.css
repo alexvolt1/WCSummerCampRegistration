@@ -33,6 +33,7 @@
         display: none;
     }
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -69,3 +70,32 @@ html {
     line-height: 1.4285;
     color: #555;
 }
+
+.row label {
+    margin-bottom: 0;
+}
+
+#reg-table, #reg-table th, #reg-table td {
+    border: 1px solid #17a2b8 !important;
+}
+
+    #reg-table th {
+        background: #d5c0c0;
+        padding: 0 10px;
+    }
+
+        #reg-table th label {
+            padding: 0 10px;
+            font-size: 20px;
+            color: #226438;
+        }
+
+    #reg-table td {
+        padding: 0 10px;
+    }
+
+        #reg-table td label {
+            font-size: 16px;
+            color: #007bff;
+            font-weight:bold;
+        }

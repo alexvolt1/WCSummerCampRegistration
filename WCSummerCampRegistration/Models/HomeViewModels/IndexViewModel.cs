@@ -10,5 +10,6 @@ namespace WCSummerCampRegistration.Models.HomeViewModels
         public IEnumerable<Category> Category { get; set; }
         public IEnumerable<Camp> Camp { get; set; }
         public IEnumerable<AvailWeek> AvailWeek { get; set; }
+        public Dictionary<int, string> AvailWeeksDict { get; set; }
     }
 }

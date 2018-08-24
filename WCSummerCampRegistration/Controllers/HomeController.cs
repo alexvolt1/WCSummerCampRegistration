@@ -14,20 +14,33 @@ namespace WCSummerCampRegistration.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        [BindProperty]
+        public IndexViewModel IndexVM { get; set; }
 
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
-        }
-        public async Task<IActionResult> Index()
-        {
-            IndexViewModel IndexVM = new IndexViewModel()
+            IndexVM = new IndexViewModel()
             {
-                AvailWeek = await _context.AvailWeeks.Include(m => m.Category).Include(m => m.Camp).ToListAsync(),
+                AvailWeek = _context.AvailWeeks.Include(m => m.Category).Include(m => m.Camp).ToList(),
                 Category = _context.Categories.OrderBy(c => c.Id),
                 Camp = _context.Camps.Where(c => c.IsAvailable).ToList()
-                
+
             };
+        }
+        public IActionResult Index()
+        {
+
+
+            IndexVM.AvailWeeksDict = new Dictionary<int, string>();
+
+
+            foreach (var aweek in IndexVM.AvailWeek)
+            {
+                IndexVM.AvailWeeksDict.Add(aweek.Id, aweek.Name);
+            }
+
+
             return View(IndexVM);
         }
 
