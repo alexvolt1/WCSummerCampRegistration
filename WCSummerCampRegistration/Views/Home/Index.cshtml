@@ -17,40 +17,38 @@
 
                         @foreach (var category in Model.Category)
                         {
-                        <tr>
-                            <th><label>@category.Name</label></th>
-                            <th>Ages</th>
-                            @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
-                            {
-                                <th>@eweek.GetDisplayName()</th>
-                            }
-                        </tr>
+                            <tr>
+                                <th><label>@category.Name</label></th>
+                                <th>Ages</th>
+                                @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
+                                {
+                                    <th>@eweek.GetDisplayName()</th>
+                                }
+                            </tr>
                             @foreach (var camp in Model.Camp.Where(u => u.Category.Name.Equals(category.Name)))
                             {
                                 @if (Model.Camp.Count() > 0)
                                 {
-                        <tr>
-                            <td><label>@camp.Name</label></td>
-                            <td>@camp.AgeFrom to @camp.AgeTo</td>
-                            @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
-                            {
-                                var availW = Model.AvailWeek.Where(u => u.Camp.Name.Equals(camp.Name)).Where(u => u.Category.Name.Equals(category.Name));
-                                bool exists = availW.Any(b => (b.Name == eweek.GetDisplayName()));
-                                if (exists)
-                                {
-                                    <td style="color:green">@eweek.GetDisplayName()</td>
-                                }
-                                else
-                                {
-                                    <td style="">@eweek.GetDisplayName()</td>
-                                }
-                            }
-                        </tr>
-                        <tr>
-                            <td>
-                                <a asp-action="Details" class="btn btn-success" asp-route-id ="@camp.Id">Details</a>
-                            </td>
-                        </tr>
+                                    <tr>
+                                        <td><label>@camp.Name</label></td>
+                                        <td>@camp.AgeFrom to @camp.AgeTo</td>
+                                        @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
+                                        {
+                                            var availW = Model.AvailWeek.Where(u => u.Camp.Name.Equals(camp.Name)).Where(u => u.Category.Name.Equals(category.Name));
+                                            bool exists = availW.Any(b => (b.Name == eweek.GetDisplayName()));
+                                            var currWeek = availW.FirstOrDefault(a => (a.Name == eweek.GetDisplayName()));
+                                            if (exists)
+                                            {
+                                                <td>
+                                                    <input type="checkbox" id="@currWeek.Id" value="@currWeek.Id"  />
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td style="background:#2b2929">@*@eweek.GetDisplayName()*@</td>
+                                            }
+                                        }
+                                    </tr>
                                 }
                             }
 
