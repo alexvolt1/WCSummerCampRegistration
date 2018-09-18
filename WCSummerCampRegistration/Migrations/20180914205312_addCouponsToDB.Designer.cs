@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WCSummerCampRegistration.Data;
 
 namespace WCSummerCampRegistration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180914205312_addCouponsToDB")]
+    partial class addCouponsToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,7 +316,8 @@ namespace WCSummerCampRegistration.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<byte[]>("Picture");
+                    b.Property<byte[]>("Picture")
+                        .IsRequired();
 
                     b.Property<bool>("isActive");
 

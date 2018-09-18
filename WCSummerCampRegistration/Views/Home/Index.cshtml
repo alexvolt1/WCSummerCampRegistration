@@ -40,7 +40,7 @@
                                             if (exists)
                                             {
                                                 <td>
-                                                    <input type="checkbox" id="@currWeek.Id" value="@currWeek.Id"  />
+                                                    <input type="checkbox" id="@currWeek.Id" value="@currWeek.Id" />
                                                 </td>
                                             }
                                             else
@@ -50,6 +50,10 @@
                                         }
                                     </tr>
                                 }
+
+                                <tr class="row col-12 text-justify">
+                                    <td><a asp-action="Details" class="btn btn-success" asp-route-id="@camp.Id">Details</a></td>
+                                </tr>
                             }
 
                         }
