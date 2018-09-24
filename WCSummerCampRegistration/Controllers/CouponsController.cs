@@ -59,6 +59,7 @@ namespace WCSummerCampRegistration.Controllers
             }
             return View(coupons);
         }
+        //GET Edit Coupons
         public async Task<IActionResult> Edit(int? id)
         {
 
@@ -113,5 +114,35 @@ namespace WCSummerCampRegistration.Controllers
             }
             return View(coupons);
         }
+
+        //GET Delete Coupons
+        public async Task<IActionResult> Delete(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var coupon = await _db.Coupons.SingleOrDefaultAsync(m => m.Id == id);
+
+            if (coupon == null)
+            {
+                return NotFound();
+            }
+            return View(coupon);
+        }
+
+
+        //Post Delete Coupons
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var coupons = await _db.Coupons.SingleOrDefaultAsync(m => m.Id == id);
+            _db.Coupons.Remove(coupons);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

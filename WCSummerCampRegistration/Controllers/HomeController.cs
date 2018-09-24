@@ -30,11 +30,7 @@ namespace WCSummerCampRegistration.Controllers
         }
         public IActionResult Index()
         {
-
-
             IndexVM.AvailWeeksDict = new Dictionary<int, string>();
-
-
             foreach (var aweek in IndexVM.AvailWeek)
             {
                 IndexVM.AvailWeeksDict.Add(aweek.Id, aweek.Name);
