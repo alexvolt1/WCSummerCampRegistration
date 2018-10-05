@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WCSummerCampRegistration.Data;
 using WCSummerCampRegistration.Models;
 using WCSummerCampRegistration.Models.AvailWeekViewModels;
+using WCSummerCampRegistration.Utility;
 
 namespace WCSummerCampRegistration.Controllers
 {
+    [Authorize(Roles = SD.AdminEndUser)]
     public class AvailWeeksController : Controller
     {
         private readonly ApplicationDbContext _context;
