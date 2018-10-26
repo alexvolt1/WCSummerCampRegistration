@@ -20,24 +20,39 @@ namespace WCSummerCampRegistration.Controllers
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
+
+        }
+        public async Task<IActionResult> Index()
+        {
+
             IndexVM = new IndexViewModel()
             {
-                AvailWeek = _context.AvailWeeks.Include(m => m.Category).Include(m => m.Camp).ToList(),
+                AvailWeek = await _context.AvailWeeks.Include(m => m.Category).Include(m => m.Camp).ToListAsync(),
                 Category = _context.Categories.OrderBy(c => c.Id),
                 Camp = _context.Camps.Where(c => c.IsAvailable).ToList()
 
             };
-        }
-        public IActionResult Index()
-        {
+
             IndexVM.AvailWeeksDict = new Dictionary<int, string>();
             foreach (var aweek in IndexVM.AvailWeek)
             {
                 IndexVM.AvailWeeksDict.Add(aweek.Id, aweek.Name);
             }
-
-
             return View(IndexVM);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var AvailWeekFromDb = await _context.AvailWeeks.Include(m => m.Category).Include(m => m.Camp).Where(m => m.Id == id).FirstOrDefaultAsync();
+
+            ShoppingCart CartObj = new ShoppingCart()
+            {
+                AvailWeek = AvailWeekFromDb,
+                AvailWeekId = AvailWeekFromDb.Id
+            };
+
+            return View(CartObj);
+
         }
 
         public IActionResult About()

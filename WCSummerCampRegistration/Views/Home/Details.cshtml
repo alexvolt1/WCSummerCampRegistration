@@ -1,0 +1,59 @@
+﻿@model WCSummerCampRegistration.Models.ShoppingCart
+
+@{
+    ViewData["Title"] = "Details";
+}
+<br />
+<h2>Menu Item Details</h2>
+<hr />
+<form method="post">
+    <div class="form-border row">
+        <div class="col-8">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="AvailWeek.Name" class="custom-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="AvailWeek.Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="AvailWeek.CategoryId" class="custom-label"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="AvailWeek.CategoryId" style="height:150px;" class="form-control" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="AvailWeek.CampId" class="custom-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="AvailWeek.CampId" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    <button type="submit" value="Add to Cart" class="btn btn-primary form-control">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            @*<img src="@Model.MenuItem.Image" width="100%" style="border-radius:5px;border:1px solid #bbb9b9;" />*@
+        </div>
+        <br />
+        <div class="form-group row col-12">
+            <a asp-action="Index" class="btn btn-success"> Back to List</a>
+        </div>
+    </div>
+    <input asp-for="AvailWeekId" hidden />
+</form>
+
+
+
