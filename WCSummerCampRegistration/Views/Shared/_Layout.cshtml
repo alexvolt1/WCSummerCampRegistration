@@ -1,4 +1,7 @@
-﻿
+﻿@using WCSummerCampRegistration.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,30 +32,58 @@
         <a class="navbar-brand" asp-action="Index" asp-controller="Home">WCSummerCampRegistration</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" asp-action="OrderHistory" asp-controller="Order">Order History</a> </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-controller="Campers" asp-action="Index">Campers</a>
-                        <a class="dropdown-item" asp-controller="Categories" asp-action="Index">Categories</a>
-                        <a class="dropdown-item" asp-controller="Camps" asp-action="Index">Camps</a>
-                        <a class="dropdown-item" asp-controller="AvailWeeks" asp-action="Index">Available Weeks</a>
-                        <a class="dropdown-item" asp-controller="Pricings" asp-action="Index">Pricings</a>
-                        <a class="dropdown-item" asp-controller="Coupons" asp-action="Index">Coupons</a>
+                @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.CustomerEndUser))
+                {
+                    <li class="nav-item"><a class="nav-link" asp-action="OrderHistory" asp-controller="Order">Order History</a> </li>
+                }
+                @if (User.IsInRole(SD.AdminEndUser))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Campers" asp-action="Index">Campers</a>
+                            <a class="dropdown-item" asp-controller="Categories" asp-action="Index">Categories</a>
+                            <a class="dropdown-item" asp-controller="Camps" asp-action="Index">Camps</a>
+                            <a class="dropdown-item" asp-controller="AvailWeeks" asp-action="Index">Available Weeks</a>
+                            <a class="dropdown-item" asp-controller="Pricings" asp-action="Index">Pricings</a>
+                            <a class="dropdown-item" asp-controller="Coupons" asp-action="Index">Coupons</a>
 
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Order
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="ManageOrder" asp-controller="Order">Manage Order</a>
-                        <a asp-controller="Order" asp-action="OrderSummaryExport" class="dropdown-item">Download Order Details</a>
-                    </div>
-                </li>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Order
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-action="ManageOrder" asp-controller="Order">Manage Order</a>
+                            <a asp-controller="Order" asp-action="OrderSummaryExport" class="dropdown-item">Download Order Details</a>
+                        </div>
+                    </li>
+                }
+                @if (User.IsInRole(SD.AdminEndUser) || User.IsInRole(SD.CustomerEndUser))
+                {
+                    @if (HttpContextAccessor.HttpContext.Session.GetInt32("CartCount") != null)
+                    {
+                        <li style="color:white;">
+                            <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i>
+                                &nbsp;(@HttpContextAccessor.HttpContext.Session.GetInt32("CartCount"))
+                            </a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li style="color:white;">
+                            <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i>
+                                &nbsp;(0)
+                            </a>
+                        </li>
+                    }
+                }
             </ul>
         </div>
 
