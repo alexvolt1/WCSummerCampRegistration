@@ -198,5 +198,86 @@ namespace WCSummerCampRegistration.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
+
+        public async Task<JsonResult> DoesWeekCampCatExistAsync(string name, int categoryId, int campId)
+        {
+
+            var week = await _context.AvailWeeks
+                .Include(c => c.Category)
+                .Where(a => a.CategoryId == categoryId)
+                .Where(b => b.CampId == campId)
+                .FirstOrDefaultAsync(m => m.Name == name);
+
+            return Json(week == null);
+
+        }
+
+        public async Task<IActionResult> Details2(int camperId, int categoryId, int campId, int availWeekId)
+        {
+
+
+            ShoppingCart CartObject = new ShoppingCart();
+
+            CartObject.Id = 0;
+            if (ModelState.IsValid)
+            {
+                var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                CartObject.ApplicationUserId = claim.Value;
+
+                ShoppingCart cartFromDb = await _context.ShoppingCart.Where(c => c.ApplicationUserId == CartObject.ApplicationUserId
+                                                    && c.AvailWeekId == CartObject.AvailWeekId).FirstOrDefaultAsync();
+
+                if (cartFromDb == null)
+                {
+                    //this menu item does not exists
+                   // for (int i = 0; i < 5; i++)
+                   //{
+                        
+                        CartObject.CamperId = camperId;
+                    CartObject.CategoryId = categoryId;
+                    CartObject.CampId = campId;
+                    CartObject.AvailWeekId = availWeekId;
+                    CartObject.ApplicationUserId = claim.Value;
+                        _context.ShoppingCart.Add(CartObject);
+                        _context.SaveChanges();
+                    //}
+
+
+
+                }
+                else
+                {
+                    //menu item exists in shopping cart for that user, so just update the count
+                    cartFromDb.Count = cartFromDb.Count + CartObject.Count;
+                }
+
+                // await _context.SaveChangesAsync();
+
+                var count = _context.ShoppingCart.Where(c => c.ApplicationUserId == CartObject.ApplicationUserId).ToList().Count();
+                HttpContext.Session.SetInt32("CartCount", count);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var AvailWeekFromDb = await _context.AvailWeeks.Include(m => m.Category).Include(m => m.Camp).Where(m => m.Id == CartObject.AvailWeekId).FirstOrDefaultAsync();
+
+                ShoppingCart CartObj = new ShoppingCart()
+                {
+                    AvailWeek = AvailWeekFromDb,
+                    AvailWeekId = AvailWeekFromDb.Id
+                };
+
+                return View(CartObj);
+            }
+
+
+        }
+
     }
 }

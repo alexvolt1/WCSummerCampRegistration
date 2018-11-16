@@ -56,4 +56,70 @@
 </form>
 
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    <script type="text/javascript">
+    $(document).ready(function(){
+        //getCamps();
+        //$('#CategoryId').change(function () {
+        //    getCamps();
+        //})
+
+        $("form").on('submit', function () {
+            if ($("form").valid()) {
+                var result = true;
+                details2(function (res) {
+                    result = res;
+                });
+
+                if (result) {
+                    return true;
+                }
+                else {
+                    $("#wnamevalidation").html("Week \"<b>" + $("#wname").val() + "</b>\" for category \"<b>" + $("#CategoryId option:selected").text() + "</b>\" and  for camp \"<b>" + $("#CampId option:selected").text() + "</b>\" alredy exists.");
+                    return false;
+                }
+            }
+        });
+
+    });
+
+    @*function getCamps() {
+        var url = '@Url.Content("~/")' + "Home/GetCamps";
+        var ddlsource = "#CategoryId";
+        $.getJSON(url, { CategoryID: $(ddlsource).val() }, function (data) {
+            var items = '';
+            $("#CampId").empty();
+            $.each(data, function (i, camp) {
+                items += "<option value='" + camp.value + "'>" + camp.text + "</option>";
+            });
+            $('#CampId').html(items);
+        })
+
+    }*@
+
+    function details2(callback) {
+        var res = false;
+        var url = '@Url.Content("~/")' + "Home/Details2";
+        var namesource = "#wname";
+        var catsource = "#CategoryId";
+        var campsource = "#CampId";
+        //var data = { NAME: $(namesource).val(), CATEGORYID: $(catsource).val(), CAMPID: $(campsource).val() };
+        var data = { CAMPERID: 111, CATEGORYID: 222, CAMPID: 333, AVAILWEEKID: 444 };
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            async: false,
+            data: data,
+            success: function (data) {
+                res = data;
+                callback(data);
+            }
+        });
+    }
+
+    </script>
+
+}
