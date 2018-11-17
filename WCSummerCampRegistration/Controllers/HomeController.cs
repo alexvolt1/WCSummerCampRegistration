@@ -279,5 +279,19 @@ namespace WCSummerCampRegistration.Controllers
 
         }
 
+
+
+        [HttpPost]
+        public IActionResult Details3(IEnumerable<OrderModel> items)
+        {
+
+
+
+                return View(items);
+   
+
+
+        }
+
     }
 }

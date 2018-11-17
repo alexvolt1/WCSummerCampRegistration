@@ -249,8 +249,8 @@ namespace WCSummerCampRegistration.Controllers
                         await _roleManager.CreateAsync(new IdentityRole(SD.CustomerEndUser));
                     }
 
-                    //await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
-                    await _userManager.AddToRoleAsync(user, SD.CustomerEndUser);
+                    await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
+                    //await _userManager.AddToRoleAsync(user, SD.CustomerEndUser);
 
                     _logger.LogInformation("User created a new account with password.");
 

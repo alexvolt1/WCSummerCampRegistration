@@ -1,4 +1,5 @@
 ﻿@model WCSummerCampRegistration.Models.HomeViewModels.IndexViewModel
+
 @using WCSummerCampRegistration.Extensions
 
 @{
@@ -7,58 +8,155 @@
 
 @if (Model.Category.Count() > 0)
 {
+    <form action="@Url.Action("Details", "Home")" method="post">
+        <div class="row" style="padding-bottom:20px;">
+            <div class="border border-info rounded col-12" style="">
+                <div class="row">
+                    <div class="col-12">
+                        <table id="reg-table" class="border border-info">
 
-    <div class="row" style="padding-bottom:20px;">
-        <div class="border border-info rounded col-12" style="">
-            <div class="row">
-                <div class="col-12">
-                    <table id="reg-table" class="border border-info">
-
-                        @foreach (var category in Model.Category)
-                        {
-                            <tr>
-                                <th><label>@category.Name</label></th>
-                                <th>Ages</th>
-                                @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
-                                {
-                                    <th>@eweek.GetDisplayName()</th>
-                                }
-                            </tr>
-                            @foreach (var camp in Model.Camp.Where(u => u.Category.Name.Equals(category.Name)))
+                            @foreach (var category in Model.Category)
                             {
-                                @if (Model.Camp.Count() > 0)
+                                <tr>
+                                    <th><label>@category.Name</label></th>
+                                    <th>Ages</th>
+                                    @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
+                                    {
+                                        <th>@eweek.GetDisplayName()</th>
+                                    }
+                                </tr>
+                                @foreach (var camp in Model.Camp.Where(u => u.Category.Name.Equals(category.Name)))
                                 {
-                                    <tr>
-                                        <td><label>@camp.Name</label></td>
-                                        <td>@camp.AgeFrom to @camp.AgeTo</td>
-                                        @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
-                                        {
-                                            var availW = Model.AvailWeek.Where(u => u.Camp.Name.Equals(camp.Name)).Where(u => u.Category.Name.Equals(category.Name));
-                                            bool exists = availW.Any(b => (b.Name == eweek.GetDisplayName()));
-                                            var currWeek = availW.FirstOrDefault(a => (a.Name == eweek.GetDisplayName()));
-                                            if (exists)
+                                    @if (Model.Camp.Count() > 0)
+                                    {
+                                        <tr>
+                                            <td><label>@camp.Name</label></td>
+                                            <td>@camp.AgeFrom to @camp.AgeTo</td>
+                                            @foreach (var eweek in (AvailWeek.EWeekStarts[])Enum.GetValues(typeof(AvailWeek.EWeekStarts)))
                                             {
-                                                <td>
-                                                    <input type="checkbox" id="@currWeek.Id" value="@currWeek.Id" />
-                                                </td>
+                                                var availW = Model.AvailWeek.Where(u => u.Camp.Name.Equals(camp.Name)).Where(u => u.Category.Name.Equals(category.Name));
+                                                bool exists = availW.Any(b => (b.Name == eweek.GetDisplayName()));
+                                                var currWeek = availW.FirstOrDefault(a => (a.Name == eweek.GetDisplayName()));
+                                                if (exists)
+                                                {
+                                                    <td>
+                                                        <input type="checkbox" id="@currWeek.Id" value="@currWeek.Id" />
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="background:#2b2929">@*@eweek.GetDisplayName()*@</td>
+                                                }
                                             }
-                                            else
-                                            {
-                                                <td style="background:#2b2929">@*@eweek.GetDisplayName()*@</td>
-                                            }
-                                        }
+                                        </tr>
+                                    }
+
+                                    <tr class="row col-12 text-justify">
+                                        <td><a asp-action="Details" class="btn btn-success" asp-route-id="@camp.Id">Details</a></td>
+                                    </tr>
+                                    <tr class="row col-12 text-justify">
+                                        <td><a htef="#" id="details3" class="btn btn-dark text-white">Details3</a></td>
+                                    </tr>
+                                    <tr class="row col-12 text-justify">
+
+                                        <td><button type="submit" value="Add to Cart" class="btn btn-primary form-control">Add To Cart</button></td>
+
                                     </tr>
                                 }
-
-                                <tr class="row col-12 text-justify">
-                                    <td><a asp-action="Details" class="btn btn-success" asp-route-id="@camp.Id">Details</a></td>
-                                </tr>
                             }
-                        }
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 }
 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        //getCamps();
+        //$('#CategoryId').change(function () {
+        //    getCamps();
+        //})
+
+        $("#details3").on('click', function () {
+           // if ($("#details2").valid()) {
+
+                var result = true;
+                details3(function (res) {
+                    result = res;
+                });
+
+                if (result) {
+                    return true;
+                }
+                else {
+                    $("#wnamevalidation").html("Week \"<b>" + $("#wname").val() + "</b>\" for category \"<b>" + $("#CategoryId option:selected").text() + "</b>\" and  for camp \"<b>" + $("#CampId option:selected").text() + "</b>\" alredy exists.");
+                    return false;
+                }
+           // }
+        });
+
+    });
+
+    @*function getCamps() {
+        var url = '@Url.Content("~/")' + "Home/GetCamps";
+        var ddlsource = "#CategoryId";
+        $.getJSON(url, { CategoryID: $(ddlsource).val() }, function (data) {
+            var items = '';
+            $("#CampId").empty();
+            $.each(data, function (i, camp) {
+                items += "<option value='" + camp.value + "'>" + camp.text + "</option>";
+            });
+            $('#CampId').html(items);
+        })
+
+    }*@
+
+    function details3(callback) {
+        var res = false;
+        var url = '@Url.Content("~/")' + "Home/Details3";
+        var namesource = "#wname";
+        var catsource = "#CategoryId";
+        var campsource = "#CampId";
+        //var data = { NAME: $(namesource).val(), CATEGORYID: $(catsource).val(), CAMPID: $(campsource).val() };
+
+        var myData = [
+            {
+                camperid: 111,
+                categoryid: 222,
+                campid: 333,
+                availweekid: 444
+            },
+            {
+                camperid: 555,
+                categoryid: 666,
+                campid: 777,
+                availweekid: 888
+            }
+        ];
+        //var data2 = { camperId: 555, categoryId: 666, campId: 777, availWeekId: 888 };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: 'json',
+            //contentType: 'application/json',
+            async: false,
+            data: { items: myData },
+            //data: JSON.stringify({ items: myData }),
+            
+            success: function (data) {
+                res = data;
+                callback(data);
+            }
+        });
+    }
+
+    </script>
+
+}
