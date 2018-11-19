@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,8 @@ namespace WCSummerCampRegistration.Models
         public int CamperId { get; set; }
         public int CategoryId { get; set; }
         public int CampId { get; set; }
+
+        //[Remote("doesOrderExists", "Home", HttpMethod = "POST", ErrorMessage = "Order already exists.")]
         public int AvailWeekId { get; set; }
 
         [NotMapped]

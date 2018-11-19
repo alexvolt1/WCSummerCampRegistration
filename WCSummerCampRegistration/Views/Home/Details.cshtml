@@ -18,6 +18,11 @@
                     <input asp-for="AvailWeek.Name" class="form-control" readonly />
                 </div>
             </div>
+            @*<div class="form-group row">
+                <span asp-validation-for="AvailWeekId" class="text-danger"></span>
+                <label asp-for="AvailWeekId" class="control-label"></label>
+                <input asp-for="AvailWeekId" class="form-control" />
+            </div>*@
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="AvailWeek.CategoryId" class="custom-label"></label>
@@ -54,4 +59,8 @@
     </div>
     <input asp-for="AvailWeekId" hidden />
 </form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
